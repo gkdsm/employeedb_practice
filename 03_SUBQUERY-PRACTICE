@@ -112,11 +112,12 @@ SELECT
 
 -- 10. 부서별 급여 합계가 전체 급여의 총 합의 20%보다 많은 부서의 부서명과, 부서별 급여 합계를 조회하세요.
 SELECT 
-       DEPT_TITLE, SUM(SALARY)
-  FROM EMPLOYEE
-  JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
- GROUP BY DEPT_TITLE
-HAVING SUM(SALARY) > (SELECT SUM(SALARY) 
-							 * 0.2
+       B.DEPT_TITLE, 
+       SUM(A.SALARY)
+  FROM EMPLOYEE A
+  JOIN DEPARTMENT B ON (A.DEPT_CODE = B.DEPT_ID)
+ GROUP BY B.DEPT_TITLE
+HAVING SUM(SALARY) > (SELECT 
+                             SUM(SALARY) * 0.2
 						FROM EMPLOYEE);
 
